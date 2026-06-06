@@ -1,10 +1,11 @@
+```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Testigos</title>
+<title>TESTIGOS</title>
 
 <style>
 
@@ -14,17 +15,26 @@
     box-sizing:border-box;
 }
 
+html{
+    scroll-behavior:smooth;
+}
+
 body{
     background:#111;
     color:white;
     font-family:Arial, sans-serif;
+    line-height:1.6;
 }
 
 .hero{
+    width:100%;
     height:100vh;
-    background-image:url('portada.png');
-    background-size:cover;
-    background-position:center;
+    background:url('portada.png');
+    background-size:contain;
+    background-repeat:no-repeat;
+    background-position:center center;
+    background-color:black;
+
     display:flex;
     flex-direction:column;
     justify-content:center;
@@ -36,24 +46,24 @@ body{
 .hero h1{
     font-size:5rem;
     margin-bottom:20px;
-    text-shadow:2px 2px 15px black;
+    text-shadow:0 0 20px black;
 }
 
 .hero p{
     font-size:1.4rem;
     max-width:800px;
-    text-shadow:2px 2px 10px black;
+    text-shadow:0 0 15px black;
 }
 
 .boton{
     margin-top:30px;
-    padding:15px 35px;
+    padding:15px 40px;
     background:#6b1f2b;
     color:white;
     text-decoration:none;
     border-radius:8px;
-    font-size:1.2rem;
     transition:0.3s;
+    font-weight:bold;
 }
 
 .boton:hover{
@@ -61,32 +71,103 @@ body{
 }
 
 section{
-    max-width:1000px;
+    max-width:1200px;
     margin:auto;
     padding:80px 20px;
 }
 
 h2{
-    margin-bottom:20px;
+    text-align:center;
+    margin-bottom:40px;
     color:#c94b61;
+    font-size:2rem;
+}
+
+.sinopsis{
+    text-align:center;
+    max-width:900px;
+    margin:auto;
 }
 
 .personajes{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-    gap:20px;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:30px;
 }
 
 .tarjeta{
     background:#1c1c1c;
-    padding:20px;
     border-radius:10px;
+    overflow:hidden;
+    text-align:center;
+    transition:0.3s;
+}
+
+.tarjeta:hover{
+    transform:translateY(-5px);
+}
+
+.tarjeta img{
+    width:100%;
+    display:block;
+}
+
+.tarjeta h3{
+    padding:15px;
+}
+
+.tarjeta p{
+    padding:0 15px 20px;
+    color:#cccccc;
+}
+
+.tarjeta a{
+    color:inherit;
+    text-decoration:none;
+}
+
+.noticias{
+    text-align:center;
 }
 
 footer{
+    background:#181818;
     text-align:center;
     padding:40px;
-    background:#181818;
+    margin-top:50px;
+}
+
+/* Ventana expediente */
+
+.lightbox{
+    display:none;
+}
+
+.lightbox:target{
+    display:flex;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.95);
+    justify-content:center;
+    align-items:center;
+    z-index:999;
+}
+
+.lightbox img{
+    max-width:90%;
+    max-height:90%;
+}
+
+.cerrar{
+    position:absolute;
+    top:20px;
+    right:30px;
+    color:white;
+    font-size:40px;
+    text-decoration:none;
 }
 
 </style>
@@ -112,34 +193,61 @@ footer{
 
     <h2>Sinopsis</h2>
 
-    <p>
-        Una nueva identidad. Nuevas reglas. Nuevos peligros.
-        Lo que parecía ser una vida normal cambia por completo,
-        obligando a enfrentar secretos, decisiones difíciles y
-        personas que podrían cambiarlo todo.
-    </p>
+    <div class="sinopsis">
+
+        <p>
+            Una nueva identidad. Nuevas reglas. Nuevos peligros.
+            Lo que parecía ser una vida normal cambia por completo,
+            obligando a enfrentar secretos, decisiones difíciles y
+            personas que podrían cambiarlo todo.
+        </p>
+
+    </div>
 
 </section>
 
 <section>
 
-    <h2>Personajes</h2>
+    <h2>Expedientes</h2>
 
     <div class="personajes">
 
         <div class="tarjeta">
-            <h3>Fin</h3>
-            <p>Próximamente.</p>
+
+            <a href="#finn">
+
+                <img src="fichafinn.png" alt="Finn">
+
+                <h3>Finn</h3>
+
+                <p>Ver expediente</p>
+
+            </a>
+
         </div>
 
         <div class="tarjeta">
+
+            <h3>Leonard</h3>
+
+            <p>Próximamente</p>
+
+        </div>
+
+        <div class="tarjeta">
+
             <h3>Naomi</h3>
-            <p>Próximamente.</p>
+
+            <p>Próximamente</p>
+
         </div>
 
         <div class="tarjeta">
+
             <h3>Owen</h3>
-            <p>Próximamente.</p>
+
+            <p>Próximamente</p>
+
         </div>
 
     </div>
@@ -150,16 +258,32 @@ footer{
 
     <h2>Noticias</h2>
 
-    <p>
-        Bienvenido a la página oficial de Testigos.
-        Aquí se anunciarán nuevos capítulos y actualizaciones.
-    </p>
+    <div class="noticias">
+
+        <p>
+            Bienvenido a la página oficial de TESTIGOS.
+            Aquí se anunciarán nuevos capítulos,
+            actualizaciones y novedades del proyecto.
+        </p>
+
+    </div>
 
 </section>
 
 <footer>
-    © Testigos
+
+    © TESTIGOS
+
 </footer>
+
+<div id="finn" class="lightbox">
+
+    <a href="#" class="cerrar">×</a>
+
+    <img src="fichafinn.png" alt="Expediente Finn">
+
+</div>
 
 </body>
 </html>
+```
