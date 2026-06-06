@@ -1,31 +1,165 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Mi Novela Visual</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Testigos</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:#111;
+    color:white;
+    font-family:Arial, sans-serif;
+}
+
+.hero{
+    height:100vh;
+    background-image:url('portada.png');
+    background-size:cover;
+    background-position:center;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:20px;
+}
+
+.hero h1{
+    font-size:5rem;
+    margin-bottom:20px;
+    text-shadow:2px 2px 15px black;
+}
+
+.hero p{
+    font-size:1.4rem;
+    max-width:800px;
+    text-shadow:2px 2px 10px black;
+}
+
+.boton{
+    margin-top:30px;
+    padding:15px 35px;
+    background:#6b1f2b;
+    color:white;
+    text-decoration:none;
+    border-radius:8px;
+    font-size:1.2rem;
+    transition:0.3s;
+}
+
+.boton:hover{
+    transform:scale(1.05);
+}
+
+section{
+    max-width:1000px;
+    margin:auto;
+    padding:80px 20px;
+}
+
+h2{
+    margin-bottom:20px;
+    color:#c94b61;
+}
+
+.personajes{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:20px;
+}
+
+.tarjeta{
+    background:#1c1c1c;
+    padding:20px;
+    border-radius:10px;
+}
+
+footer{
+    text-align:center;
+    padding:40px;
+    background:#181818;
+}
+
+</style>
 </head>
 
 <body>
 
-    <h1>Mi Novela Visual</h1>
+<div class="hero">
 
-    <p>Bienvenido a mi novela visual.</p>
+    <h1>TESTIGOS</h1>
+
+    <p>
+        ¿Qué pasaría si de un día a otro tuvieras que adoptar una vida completamente diferente a la tuya?
+    </p>
+
+    <a class="boton" href="#">
+        JUGAR
+    </a>
+
+</div>
+
+<section>
 
     <h2>Sinopsis</h2>
 
     <p>
-        Aquí irá la sinopsis.
+        Una nueva identidad. Nuevas reglas. Nuevos peligros.
+        Lo que parecía ser una vida normal cambia por completo,
+        obligando a enfrentar secretos, decisiones difíciles y
+        personas que podrían cambiarlo todo.
     </p>
+
+</section>
+
+<section>
 
     <h2>Personajes</h2>
 
-    <ul>
-        <li>Fin</li>
-        <li>Naomi</li>
-        <li>Owen</li>
-    </ul>
+    <div class="personajes">
 
-    <button>Jugar</button>
+        <div class="tarjeta">
+            <h3>Fin</h3>
+            <p>Próximamente.</p>
+        </div>
+
+        <div class="tarjeta">
+            <h3>Naomi</h3>
+            <p>Próximamente.</p>
+        </div>
+
+        <div class="tarjeta">
+            <h3>Owen</h3>
+            <p>Próximamente.</p>
+        </div>
+
+    </div>
+
+</section>
+
+<section>
+
+    <h2>Noticias</h2>
+
+    <p>
+        Bienvenido a la página oficial de Testigos.
+        Aquí se anunciarán nuevos capítulos y actualizaciones.
+    </p>
+
+</section>
+
+<footer>
+    © Testigos
+</footer>
 
 </body>
 </html>
