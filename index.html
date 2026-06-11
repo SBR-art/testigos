@@ -1,286 +1,233 @@
-<!DOCTYPE html>
-<html lang="es">
+<!doctype html>
+<html lang="en-us">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Testigos.</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="manifest" href="manifest.json" crossorigin="use-credentials" />
+  <link rel="icon" href="icons/icon-72x72.png" sizes="72x72" type="image/png" />
+  <link rel="icon" href="icons/icon-96x96.png" sizes="96x96" type="image/png" />
+  <link rel="icon" href="icons/icon-128x128.png" sizes="128x128" type="image/png" />
+  <link rel="icon" href="icons/icon-144x144.png" sizes="144x144" type="image/png" />
+  <link rel="icon" href="icons/icon-152x152.png" sizes="152x152" type="image/png" />
+  <link rel="icon" href="icons/icon-192x192.png" sizes="192x192" type="image/png" />
+  <link rel="icon" href="icons/icon-384x384.png" sizes="384x384" type="image/png" />
+  <link rel="icon" href="icons/icon-512x512.png" sizes="512x512" type="image/png" />
+  <!-- ios support -->
+  <link rel="apple-touch-icon" href="icons/icon-72x72.png" sizes="72x72" type="image/png" />
+  <link rel="apple-touch-icon" href="icons/icon-96x96.png" sizes="96x96" type="image/png" />
+  <link rel="apple-touch-icon" href="icons/icon-128x128.png" sizes="128x128" type="image/png" />
+  <link rel="apple-touch-icon" href="icons/icon-144x144.png" sizes="144x144" type="image/png" />
+  <link rel="apple-touch-icon" href="icons/icon-152x152.png" sizes="152x152" type="image/png" />
+  <link rel="apple-touch-icon" href="icons/icon-192x192.png" sizes="192x192" type="image/png" />
+  <link rel="apple-touch-icon" href="icons/icon-384x384.png" sizes="384x384" type="image/png" />
+  <link rel="apple-touch-icon" href="icons/icon-512x512.png" sizes="512x512" type="image/png" />
 
-<style>
+  <meta name="theme-color" content="#000" />
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
+  <style>
+    html {
+      background: #444;
+      font-family: sans-serif;
+    }
 
-html{
-    scroll-behavior:smooth;
-}
+    body, html {
+      overscroll-behavior: none;
+    }
 
-body{
-    background:#111;
-    color:white;
-    font-family:Arial, sans-serif;
-    line-height:1.6;
-}
+    #canvas, #overlayDiv {
+      position: absolute;
+      top: 0px;
+      left: 0px;
 
-.hero{
-    width:100%;
-    height:100vh;
-    background:url('portada.png');
-    background-size:contain;
-    background-repeat:no-repeat;
-    background-position:center center;
-    background-color:black;
+      width: 100%;
+      height: 100%;
 
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-    padding:20px;
-}
+      border: 0 none;
+    }
 
-.hero h1{
-    font-size:5rem;
-    margin-bottom:20px;
-    text-shadow:0 0 20px black;
-}
+    #canvas {
+      background: #000;
+    }
 
-.hero p{
-    font-size:1.4rem;
-    max-width:800px;
-    text-shadow:0 0 15px black;
-}
+    .visible {
+      visibility: visible;
+      opacity: 1.0;
+      transition: opacity .1s linear;
+    }
 
-.boton{
-    margin-top:30px;
-    padding:15px 40px;
-    background:#6b1f2b;
-    color:white;
-    text-decoration:none;
-    border-radius:8px;
-    transition:0.3s;
-    font-weight:bold;
-}
+    .hidden {
+      visibility: hidden;
+      opacity: 0;
+      transition: visibility 0s .25s, opacity .25s linear;
+    }
 
-.boton:hover{
-    transform:scale(1.05);
-}
+    #statusDiv, #inputDiv {
+      background: rgba(0, 0, 0, 0.75);
+      width: 50%;
+      margin: auto;
+      min-width: 340px;
+      padding: 10px;
 
-section{
-    max-width:1200px;
-    margin:auto;
-    padding:80px 20px;
-}
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
 
-h2{
-    text-align:center;
-    margin-bottom:40px;
-    color:#c94b61;
-    font-size:2rem;
-}
+      border-radius: 0 0 5px 5px;
+    }
 
-.sinopsis{
-    text-align:center;
-    max-width:900px;
-    margin:auto;
-}
+    #statusTextDiv {
+      overflow: auto;
+      max-height: 40vh;
+      color: #ccc;
+      font-size: 14px;
+    }
 
-.personajes{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:30px;
-}
+    #statusProgress {
+      display: none;
+      width: 100%;
+    }
 
-.tarjeta{
-    background:#1c1c1c;
-    border-radius:10px;
-    overflow:hidden;
-    text-align:center;
-    transition:0.3s;
-}
+    #inputDiv {
+      width: 65%;
+      padding-left: 10px;
+      padding-right: 20px;
+    }
 
-.tarjeta:hover{
-    transform:translateY(-5px);
-}
+    #inputPrompt {
+      color: #eee;
+      font-size: 150%;
+      margin-bottom: 1em;
+      margin-top: 1em;
 
-.tarjeta img{
-    width:100%;
-    display:block;
-}
+    }
 
-.tarjeta h3{
-    padding:15px;
-}
+    #inputText {
+      width: 100%;
+      font-size: 175%;
+      padding: 5px;
+      background: inherit;
+      color: #eee;
+    }
 
-.tarjeta p{
-    padding:0 15px 20px;
-    color:#cccccc;
-}
+    #inputText:focus {
+      color: #ffffff;
+    }
 
-.tarjeta a{
-    color:inherit;
-    text-decoration:none;
-}
+    #ContextContainer {
+      position: absolute;
+      left: 0px;
+      top: 0px;
+      color: white;
+    }
 
-.noticias{
-    text-align:center;
-}
+    #ContextContainer.shown {
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 0px 0px 5px 0px;
+    }
 
-footer{
-    background:#181818;
-    text-align:center;
-    padding:40px;
-    margin-top:50px;
-}
+    #ContextButton {
+      text-decoration: none;
+      color: lightgrey;
+      font-size: xx-large;
+      cursor: pointer;
+      user-select: none;
+      -moz-user-select: none;
+      padding: 10px 10px;
+      opacity: .75;
+    }
 
-/* Ventana expediente */
+    #ContextButton:focus {
+      outline: none;
+      color: #ffffff;
+      opacity: 1.0;
+    }
 
-.lightbox{
-    display:none;
-}
+    #ContextMenu a {
+      text-decoration: none;
+      color: lightgrey;
+      background: #444;
+      height: 48px;
+      width: 250px;
+      border-radius: 5px;
+      border: 1px solid lightgrey;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 5px 5px;
+      opacity: 1.0;
+    }
 
-.lightbox:target{
-    display:flex;
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background:rgba(0,0,0,0.95);
-    justify-content:center;
-    align-items:center;
-    z-index:999;
-}
+    #ContextMenu a:hover {
+      text-decoration: none;
+      background: #666666;
+      color: #ffffff
+    }
 
-.lightbox img{
-    max-width:90%;
-    max-height:90%;
-}
+    #presplash {
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: block;
+        margin: auto;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
 
-.cerrar{
-    position:absolute;
-    top:20px;
-    right:30px;
-    color:white;
-    font-size:40px;
-    text-decoration:none;
-}
+  </style>
 
-</style>
 </head>
 
 <body>
+  <canvas id="canvas" oncontextmenu="event.preventDefault()" tabindex=-1></canvas>
+  <div id="overlayDiv"></div>
 
-<div class="hero">
+  <img id="presplash" src="web-presplash.jpg">
 
-    <h1>TESTIGOS</h1>
-
-    <p>
-        ¿Qué pasaría si de un día a otro tuvieras que adoptar una vida completamente diferente a la tuya?
-    </p>
-
-    <a class="boton" href="#">
-        JUGAR
-    </a>
-
-</div>
-
-<section>
-
-    <h2>Sinopsis</h2>
-
-    <div class="sinopsis">
-
-        <p>
-            Una nueva identidad. Nuevas reglas. Nuevos peligros.
-            Lo que parecía ser una vida normal cambia por completo,
-            obligando a enfrentar secretos, decisiones difíciles y
-            personas que podrían cambiarlo todo.
-        </p>
-
+  <div id="ContextContainer">
+    <a id="ContextButton">&#8801;</a><br />
+    <div id="ContextMenu" style="display: none;">
+      <input id="ID_SavegamesImport" type="file" onchange="onSavegamesImport(this)" accept="application/zip"
+        style=display:none></input>
+      <a href="javascript:document.getElementById('ID_SavegamesImport').click();">Import Saves</a>
+      <a href="javascript:onSavegamesExport();">Export Saves</a>
+      <a href="javascript:FSDownload('/log.txt', 'text/plain');">Download Log</a>
+      <a href="https://www.renpy.org/" target="_blank">
+          Powered by Ren'Py
+      </a>
+      </span>
     </div>
+  </div>
 
-</section>
+  <div id="statusDiv" class="hidden">
+    <div id="statusTextDiv"></div>
+    <progress id="statusProgress" value="0" max="100"></progress>
+  </div>
 
-<section>
+  <div id="inputDiv" class="hidden">
+    <form id="inputForm">
+      <div id="inputPrompt"></div>
+      <input id="inputText" type="text">
+    </form>
+  </div>
 
-    <h2>Expedientes</h2>
+  <script>
+      // The URL to game.zip, relative to the URL of this file.
+      window.gameZipURL = 'game.zip';
 
-    <div class="personajes">
-
-        <div class="tarjeta">
-
-            <a href="#finn">
-
-                <img src="fichafinn.png" alt="Finn">
-
-                <h3>Finn</h3>
-
-                <p>Ver expediente</p>
-
-            </a>
-
-        </div>
-
-        <div class="tarjeta">
-
-            <h3>Leonard</h3>
-
-            <p>Próximamente</p>
-
-        </div>
-
-        <div class="tarjeta">
-
-            <h3>Naomi</h3>
-
-            <p>Próximamente</p>
-
-        </div>
-
-        <div class="tarjeta">
-
-            <h3>Owen</h3>
-
-            <p>Próximamente</p>
-
-        </div>
-
-    </div>
-
-</section>
-
-<section>
-
-    <h2>Noticias</h2>
-
-    <div class="noticias">
-
-        <p>
-            Bienvenido a la página oficial de TESTIGOS.
-            Aquí se anunciarán nuevos capítulos,
-            actualizaciones y novedades del proyecto.
-        </p>
-
-    </div>
-
-</section>
-
-<footer>
-
-    © TESTIGOS
-
-</footer>
-
-<div id="finn" class="lightbox">
-
-    <a href="#" class="cerrar">×</a>
-
-    <img src="fichafinn.png" alt="Expediente Finn">
-
-</div>
-
+      // Register the service worker.
+      if (navigator.serviceWorker) {
+          if (!navigator.serviceWorker.controller) {
+              navigator.serviceWorker.register('./service-worker.js', { updateViaCache: 'all' });
+          }
+      }
+  </script>
+  <script src="renpy-pre.js"></script>
+  <script async type="text/javascript" src="renpy.js"></script>
 </body>
+
 </html>
-```
